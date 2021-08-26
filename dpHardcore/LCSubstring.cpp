@@ -12,20 +12,26 @@ int lcsLen(string A, string B, int nA, int nB) {
     int dp[nA+1][nB+1];
     memset(dp, 0, sizeof(dp));
 
+    int maxVal = 0; 
+
     for(int i = 1; i <= nA; i++) {
         for(int j = 1; j <= nB; j++) {
-            if(A[i] == B[j])
+            if(A[i-1] == B[j-1]) {
                 dp[i][j] = dp[i-1][j-1] + 1;
+                maxVal = max(maxVal, dp[i][j]);
+            }
+
             else
-                continue;
+                dp[i][j] = 0;
         }
     }
-    return dp[nA][nB];
+    // return dp[nA][nB];
+    return maxVal;
 }
 
 int main() {
-    string A = "abcde";
-    string B = "abfce";
+    string A = "abcdf";
+    string B = "abfdg";
     cout<<lcsLen(A, B, A.size(), B.size());
     return 0;
 }
